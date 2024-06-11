@@ -1,0 +1,22 @@
+2.     1.     0
+major  mijor  patch
+
+npm init -y
+
+npm update
+
+npm install ou npm i
+
+npm uninstall
+
+npm install express -E // Versao especifica
+
+npm ls ou npm ls --depth=0
+
+npm outdated
+
+npm install express@4.x
+
+npm install express --save-dev
+
+npm install express --save-prod
