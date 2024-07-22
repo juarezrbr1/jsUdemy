@@ -5,10 +5,11 @@ const app = express();
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.CONNECTION_STRING,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  // {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true,
+  // }
+)
   .then(() => {
     console.log('MongoDB connected');
     app.emit('pronto');
@@ -29,7 +30,7 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'public')));
 
 const sessionOptions = session({
-  secret: 'ahkldhalkdjhak',
+  secret: 'a1hkl5dhalk4d94jh11a2k',
   store: MongoStore.create({ mongoUrl: process.env.CONNECTION_STRING }),
   resave: false,
   saveUninitialized: false,
