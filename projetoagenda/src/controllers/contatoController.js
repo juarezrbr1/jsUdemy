@@ -40,7 +40,7 @@ exports.edit = async function(req, res) {
         await contato.edit(req.params.id);
         if(contato.errors.length > 0) {
             req.flash('errors', contato.errors);
-            req.session.save(() => res.redirect('/contato/index'));
+            req.session.save(() => res.redirect('/'));
             return;
         }
         req.flash('success', 'Contato editado com sucesso.');
@@ -50,4 +50,15 @@ exports.edit = async function(req, res) {
         console.log(e);
         res.render('404');
     }
+}
+
+exports.delete = async function(req, res) {
+    if(!req.params.id) return res.render('404');
+
+    const contato = await Contato.delete(req.params.id);
+    if(!contato) return res.render('404');
+
+    req.flash('success', 'Contato apagado com sucesso.');
+    req.session.save(() => res.redirect('/'));
+    return;
 }
