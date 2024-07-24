@@ -1,11 +1,15 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import pluginReact from "eslint-plugin-react";
+import { defineConfig } from 'eslint-config-react-app';
 
-
-export default [
-  {files: ["**/*.{js,mjs,cjs,jsx}"]},
-  {languageOptions: { globals: globals.browser }},
-  pluginJs.configs.recommended,
-  pluginReact.configs.flat.recommended,
-];
+export default defineConfig({
+  extends: [
+    'react-app',
+    'react-app/jest'
+  ],
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module'
+  },
+  rules: {
+    // Adicione regras personalizadas aqui
+  }
+});
