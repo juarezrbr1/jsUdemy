@@ -27,12 +27,15 @@ export default createGlobalStyle`
         padding: 10px 20px;
         border-radius: 4px;
         font-weight: 700;
+        transition: all 0.2s ease-in-out;
     }
 
     button:hover {
+      filter: brightness(0.85);
         background-color: ${colors.primaryColor};
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        transition: all 0.2s ease-in-out;
+
+        transition: all 0.3s ease-in-out;
     }
 
     a {
