@@ -30,9 +30,15 @@ export function registerFailure(payload) {
     payload,
   };
 }
-export function registerSuccess(payload) {
+export function registerUpdatedSuccess(payload) {
   return {
-    type: types.REGISTER_SUCCESS,
+    type: types.REGISTER_UPDATED_SUCCESS,
+    payload,
+  };
+}
+export function registerCreatedSuccess(payload) {
+  return {
+    type: types.REGISTER_CREATED_SUCCESS,
     payload,
   };
 }

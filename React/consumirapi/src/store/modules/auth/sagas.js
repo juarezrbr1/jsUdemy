@@ -41,17 +41,31 @@ function* registerRequest({ payload }) {
         password: password || undefined,
       })
       toast.success("Usuário atualizado com sucesso");
-      yield put(actions.registerSuccess({ nome, email, password}));
+      yield put(actions.registerUpdatedSuccess({ nome, email, password}));
+    } else {
+      yield call(axios.post, '/users', {
+        email,
+        nome,
+        password,
+      });
+      toast.success("Usuário cadastrado com sucesso");
+      yield put(actions.registerCreatedSuccess({ nome, email, password}));
+      history.push('/login');
     }
-
   } catch (e) {
     const errors = get((e, 'response.data.error', []));
-    // const status = get((e, 'response.status', 0));
+    const status = get((e, 'response.status', 0));
+
+    if(status === 401) {
+      toast.error("Você precisa fazer login novamente.");
+      yield put(actions.loginFailure());
+      return history.push('/login');
+    }
 
     if(errors.length > 0) {
       errors.map(error => toast.error(error))
     } else {
-      toast.error("Ocorreu um erro");
+      toast.error("Erro desconhecido.");
     }
     yield put(actions.registerFailure());
   }
