@@ -30,6 +30,33 @@ function persistRehydrate({ payload }) {
   // yield put(actions.loginSuccess({ token }));
 }
 
+function* registerRequest({ payload }) {
+  const { id, nome, email, password } = payload;
+
+  try {
+    if(id) {
+      yield call(axios.put, '/users', {
+        email,
+        nome,
+        password: password || undefined,
+      })
+      toast.success("Usuário atualizado com sucesso");
+      yield put(actions.registerSuccess({ nome, email, password}));
+    }
+
+  } catch (e) {
+    const errors = get((e, 'response.data.error', []));
+    // const status = get((e, 'response.status', 0));
+
+    if(errors.length > 0) {
+      errors.map(error => toast.error(error))
+    } else {
+      toast.error("Ocorreu um erro");
+    }
+    yield put(actions.registerFailure());
+  }
+}
+
 export default all([
   takeLatest(types.LOGIN_REQUEST, loginRequest),
   takeLatest(types.PERSIST_REHYDRATE, persistRehydrate),
