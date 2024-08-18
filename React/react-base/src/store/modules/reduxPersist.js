@@ -1,15 +1,15 @@
-import storage from 'redux-persist/lib/storage'
+import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 
 export default reducers => {
-  const persistedReducer = persistReducer(
+  const persistedReducers = persistReducer(
     {
       key: 'REACT-BASE',
       storage,
       whitelist: ['example'],
     },
-    reducers,
+    reducers
   );
 
-  return persistedReducer;
+  return persistedReducers;
 };

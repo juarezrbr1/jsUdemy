@@ -1,17 +1,18 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 
-export default async(req, res, next) => {
+export default async (req, res, next) => {
   const { authorization } = req.headers;
 
-  if(!authorization) {
+  if (!authorization) {
     return res.status(401).json({
-      erros: ['Login required'],
+      errors: ['Login required'],
     });
   }
 
+  const [, token] = authorization.split(' ');
+
   try {
-    const [, token] = authorization.split(' ');
     const dados = jwt.verify(token, process.env.TOKEN_SECRET);
     const { id, email } = dados;
 
@@ -22,9 +23,9 @@ export default async(req, res, next) => {
       },
     });
 
-    if(!user) {
+    if (!user) {
       return res.status(401).json({
-        erros: ['Usuário inválido'],
+        errors: ['Usuário inválido'],
       });
     }
 
@@ -33,7 +34,7 @@ export default async(req, res, next) => {
     return next();
   } catch (e) {
     return res.status(401).json({
-      erros: ['Token invalido'],
+      errors: ['Token expirado ou inválido.'],
     });
   }
-}
+};

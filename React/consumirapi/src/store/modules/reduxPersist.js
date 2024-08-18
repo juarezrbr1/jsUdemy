@@ -1,8 +1,8 @@
-import storage from 'redux-persist/lib/storage'
+import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 
-export default reducers => {
-  const persistedReducer = persistReducer(
+export default (reducers) => {
+  const persistedReducers = persistReducer(
     {
       key: 'CONSUMO-API',
       storage,
@@ -11,5 +11,5 @@ export default reducers => {
     reducers,
   );
 
-  return persistedReducer;
+  return persistedReducers;
 };

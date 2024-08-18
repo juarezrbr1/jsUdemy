@@ -1,5 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
-import bcrypt from 'bcryptjs';
+import bcryptjs from 'bcryptjs';
 
 export default class User extends Model {
   static init(sequelize) {
@@ -10,7 +10,7 @@ export default class User extends Model {
         validate: {
           len: {
             args: [3, 255],
-            msg: 'Field name must be between 3 and 255 characters',
+            msg: 'Campo nome deve ter entre 3 e 255 caracteres',
           },
         },
       },
@@ -18,11 +18,11 @@ export default class User extends Model {
         type: Sequelize.STRING,
         defaultValue: '',
         unique: {
-          msg: 'Email already exists',
+          msg: 'Email já existe',
         },
         validate: {
           isEmail: {
-            msg: 'Invalid email',
+            msg: 'Email inválido',
           },
         },
       },
@@ -36,22 +36,24 @@ export default class User extends Model {
         validate: {
           len: {
             args: [6, 50],
-            msg: 'Field password must be between 6 and 50 characters',
+            msg: 'A senha precisa ter entre 6 e 50 caracteres',
           },
         },
       },
     }, {
       sequelize,
     });
+
     this.addHook('beforeSave', async (user) => {
       if (user.password) {
-        user.password_hash = await bcrypt.hash(user.password, 8);
+        user.password_hash = await bcryptjs.hash(user.password, 8);
       }
     });
+
     return this;
   }
 
   passwordIsValid(password) {
-    return bcrypt.compare(password, this.password_hash);
+    return bcryptjs.compare(password, this.password_hash);
   }
 }

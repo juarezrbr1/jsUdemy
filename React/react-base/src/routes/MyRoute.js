@@ -10,9 +10,11 @@ export default function MyRoute({ component: Component, isClosed, ...rest }) {
       <Redirect
         to={{ pathname: '/login', state: { prevPath: rest.location.pathname } }}
       />
-    )
+    );
   }
-  return <Route {...rest} render={props => <Component {...props} />} />;
+
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <Route {...rest} component={Component} />;
 }
 
 MyRoute.defaultProps = {

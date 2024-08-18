@@ -1,7 +1,7 @@
 import multer from 'multer';
-import multerConfig from '../config/multerConfig.js';
+import multerConfig from '../config/multerConfig';
 
-import Foto from '../models/Foto.js';
+import Foto from '../models/Foto';
 
 const upload = multer(multerConfig).single('foto');
 
@@ -22,7 +22,7 @@ class FotoController {
         return res.json(foto);
       } catch (e) {
         return res.status(400).json({
-          errors: ['Aluno não existe.'],
+          errors: ['Aluno não existe'],
         });
       }
     });

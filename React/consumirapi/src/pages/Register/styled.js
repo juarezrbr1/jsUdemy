@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import * as colors from '../../config/colors'
+import styled from 'styled-components';
+import * as colors from '../../config/colors';
 
 export const Form = styled.form`
-  display:flex;
-  flex-direction:column;
-  margin-top:20px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 
   label {
     display: flex;
@@ -16,10 +16,12 @@ export const Form = styled.form`
     height: 40px;
     font-size: 18px;
     border: 1px solid #ddd;
+    padding: 0 10px;
     border-radius: 4px;
-    padding: 0 5px;
-  &:focus {
-    border: 1px solid ${colors.primaryColor};
+    margin-top: 5px;
+
+    &:focus {
+      border: 1px solid ${colors.primaryColor};
+    }
   }
-}
 `;

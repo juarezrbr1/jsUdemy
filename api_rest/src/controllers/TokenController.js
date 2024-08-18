@@ -1,5 +1,5 @@
-import User from '../models/User';
 import jwt from 'jsonwebtoken';
+import User from '../models/User';
 
 class TokenController {
   async store(req, res) {
@@ -7,7 +7,7 @@ class TokenController {
 
     if (!email || !password) {
       return res.status(401).json({
-        errors: ['Credenciais inválidas']
+        errors: ['Credenciais inválidas'],
       });
     }
 
@@ -15,22 +15,23 @@ class TokenController {
 
     if (!user) {
       return res.status(401).json({
-        errors: ['Usuário não existe']
+        errors: ['Usuário não existe'],
       });
     }
 
     if (!(await user.passwordIsValid(password))) {
       return res.status(401).json({
-        errors: ['Senha inválida']
+        errors: ['Senha inválida'],
       });
     }
 
-    const token = jwt.sign({ id: user.id, email }, process.env.TOKEN_SECRET, {
-      expiresIn: process.env.TOKEN_EXPIRATION
+    const { id } = user;
+    const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
+      expiresIn: process.env.TOKEN_EXPIRATION,
     });
 
-    return res.json({ token, user: { nome: user.nome, id: user.id, email } });
-  };
+    return res.json({ token, user: { nome: user.nome, id, email } });
+  }
 }
 
 export default new TokenController();
